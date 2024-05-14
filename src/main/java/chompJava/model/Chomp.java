@@ -10,6 +10,10 @@ public class Chomp {
   private int player; // 0 = p1, 1 = p2
   private int chomped;
   private ChompStatus status;
+
+  //int  [0, 1, 2, 3, n]
+  //int[][1]
+  //int[][2]
    
   public Chomp(int rows, int cols) {
     this.rows = rows;
@@ -21,31 +25,85 @@ public class Chomp {
   }
 
   public void reset() {
+    chomped = 0;
+    status = ChompStatus.ONGOING;
+    //reset board size??
     throw new UnsupportedOperationException();
   }
 
   public ChompStatus getStatus() {
-    throw new UnsupportedOperationException();
+    if(isLoser()==true){
+      if(player == 0){
+        return ChompStatus.ONE_WINS;
+      }
+      else{
+        return ChompStatus.TWO_WINS;
+      }
+    }
+    else{
+      return ChompStatus.ONGOING;
+    }
+    //throw new UnsupportedOperationException();
   }
 
   public boolean isLoser() {
-    throw new UnsupportedOperationException();
+    if(board[0][0]==1){
+      return true;
+    }
+    else{
+      return false;
+    }
+    //throw new UnsupportedOperationException();
   }
 
-  public int getCurrentPlayer() {
-    throw new UnsupportedOperationException();
+  public String getCurrentPlayer() {
+    if(player == 0){
+      return "player 1";
+    }
+    else{
+      return "player 2";
+    }
+    //throw new UnsupportedOperationException();
   }
 
   public ChompStatus chomp(int row, int col) {
-    throw new UnsupportedOperationException();
+    validateLocation(row, col);
+    int rowindex = this.rows;
+    while(rowindex>=rows){
+      if(board[rowindex][col]==0){
+        board[rowindex][col] = 1;
+        chomped++;
+      }
+      rowindex--;
+    }
+    int colindex = this.cols;
+    while(colindex>=cols){
+      if(board[row][colindex]==0){
+        board[row][colindex]=1;
+        chomped++;
+      }
+      colindex--;
+    }
+    return getStatus();
   }
 
   @Override
   public String toString() {
-    throw new UnsupportedOperationException();
+    String currentplayer="";
+    if(player ==0){
+      currentplayer = "p1";
+    }
+    else{
+      currentplayer = "p2";
+    }
+    return "board: " + board + ", current player: " + currentplayer + ", game status: " + status;
+    //throw new UnsupportedOperationException();
   }
 
   private void validateLocation(int row, int col) {
-    throw new UnsupportedOperationException();
+    //also if the row and col fall out of the 2d grid
+    if(row==0&&col==0){
+      throw new UnsupportedOperationException();
+  }
   }
 }
