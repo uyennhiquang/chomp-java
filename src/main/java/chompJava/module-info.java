@@ -5,5 +5,5 @@ module chompJava {
     requires transitive javafx.media;
 
     opens chompJava to javafx.fxml;
-    exports chompJava;
+    //exports chompJava;
 }

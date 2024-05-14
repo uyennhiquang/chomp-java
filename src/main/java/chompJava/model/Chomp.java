@@ -23,6 +23,9 @@ public class Chomp {
     this.chomped = 0;
     this.status = ChompStatus.ONGOING;
   }
+  public int getChomped(){ //this is more to test
+    return chomped;
+  }
 
   public void reset() {
     this.chomped = 0;
@@ -36,6 +39,8 @@ public class Chomp {
   }
 
   public ChompStatus getStatus() {
+    return status;
+     /*
     if(isLoser()==true){
       if(player == 0){
         return ChompStatus.ONE_WINS;
@@ -47,6 +52,7 @@ public class Chomp {
     else{
       return ChompStatus.ONGOING;
     }
+    */
     //throw new UnsupportedOperationException();
   }
 
