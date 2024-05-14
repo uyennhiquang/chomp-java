@@ -40,30 +40,6 @@ public class Chomp {
 
   public ChompStatus getStatus() {
     return status;
-     /*
-    if(isLoser()==true){
-      if(player == 0){
-        return ChompStatus.ONE_WINS;
-      }
-      else{
-        return ChompStatus.TWO_WINS;
-      }
-    }
-    else{
-      return ChompStatus.ONGOING;
-    }
-    */
-    //throw new UnsupportedOperationException();
-  }
-
-  public boolean isLoser() {
-    if(board[0][0]==1){ //checks if poison piece is eaten
-      return true;
-    }
-    else{
-      return false;
-    }
-    //throw new UnsupportedOperationException();
   }
 
   public String getCurrentPlayer() {
@@ -93,6 +69,14 @@ public class Chomp {
         chomped++; //updates chomped
       }
       colindex--; //updates colindex
+    }
+    if(board[0][0]==CHOMPED){ //check if there is loser
+      if(getCurrentPlayer()=="player 1"){
+        this.status = ChompStatus.TWO_WINS;
+      }
+      else{
+        this.status = ChompStatus.ONE_WINS;
+      }
     }
     return getStatus(); //automatically will check from here if the poison piece is eaten
   }
