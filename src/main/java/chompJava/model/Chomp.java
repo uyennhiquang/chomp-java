@@ -28,12 +28,11 @@ public class Chomp {
     this.chomped = 0;
     this.status = ChompStatus.ONGOING;
     this.player = 0; //this is assuming p1 always goes first
-    for(int i = 0; i< this.rows;i++){ //resets the entire board to not chomped again
-      for(int j = 0; j<this.cols;j++){
-        board[i][j] = 0;
+    for(int row = 0; row< this.rows; row++){ //resets the entire board to not chomped again
+      for(int col = 0; col<this.cols; col++){
+        board[row][col] = Chomp.NOT_CHOMPED;
       }
     }
-    //throw new UnsupportedOperationException();
   }
 
   public ChompStatus getStatus() {
