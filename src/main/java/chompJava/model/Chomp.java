@@ -25,11 +25,11 @@ public class Chomp {
   }
 
   public void reset() {
-    chomped = 0;
-    status = ChompStatus.ONGOING;
-    player = 0; //this is assuming p1 always goes first
-    for(int i = 0; i< board.length;i++){ //resets the entire board to not chomped again
-      for(int j = 0; j<board.length;j++){
+    this.chomped = 0;
+    this.status = ChompStatus.ONGOING;
+    this.player = 0; //this is assuming p1 always goes first
+    for(int i = 0; i< this.rows;i++){ //resets the entire board to not chomped again
+      for(int j = 0; j<this.cols;j++){
         board[i][j] = 0;
       }
     }
