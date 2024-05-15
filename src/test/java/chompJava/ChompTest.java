@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import chompJava.model.Chomp;
+import chompJava.model.ChompException;
 import chompJava.model.ChompStatus;
 
 public class ChompTest {
@@ -16,9 +17,16 @@ public class ChompTest {
         assertEquals(0,game.getChomped());
         assertEquals("player 1", game.getCurrentPlayer());
     }
+
+    @Test
     public void test02(){
         Chomp game = new Chomp(5,4);
-        game.chomp(3,2);
+        try {
+            game.chomp(3,2);
+        } catch (ChompException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         assertEquals(4, game.getChomped());
     }
 }
