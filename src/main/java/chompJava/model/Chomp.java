@@ -60,7 +60,7 @@ public class Chomp {
 
   public ChompStatus chomp(int row, int col) throws ChompException {
     validateLocation(row, col);
-    int rowindex = this.rows;
+    int rowindex = this.rows-1;
     while (rowindex >= row) { // while the index is still at the chomped param row and below
       if (board[rowindex][col] == 0) {
         board[rowindex][col] = 1; // chomps all rows at and below "row"
@@ -68,13 +68,20 @@ public class Chomp {
       }
       rowindex--; // updates rowindex
     }
-    int colindex = this.cols;
+    int colindex = this.cols-1;
     while (colindex >= col) { // while the index is still at the chomped column or to the right
       if (board[row][colindex] == 0) {
         board[row][colindex] = 1; // chomps all rows to the right of "col"
         chomped++; // updates chomped
       }
       colindex--; // updates colindex
+    }
+    //updates the player
+    if(getCurrentPlayer().equals("player 1")){
+      player = 1;
+    }
+    else{
+      player = 0;
     }
     if (board[0][0] == CHOMPED) { // check if there is loser
       if (getCurrentPlayer() == "player 1") {
