@@ -19,9 +19,15 @@ public class Chomp {
     this.rows = rows;
     this.cols = cols;
     this.board = new int[this.rows][this.cols];
-    this.player = 0;
-    this.chomped = 0;
-    this.status = ChompStatus.ONGOING;
+    reset();
+  }
+  public Chomp(int rows, int cols, ChompStatus status, int chomped, int player){
+    this.rows = rows;
+    this.cols = cols;
+    this.board = new int[this.rows][this.cols];
+    this.status = status;
+    this.chomped = chomped;
+    this.player = player;
   }
   public int getChomped(){ //this is more to test
     return chomped;
