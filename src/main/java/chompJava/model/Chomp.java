@@ -1,8 +1,12 @@
 package chompJava.model;
 
+import java.util.Arrays;
+
 public class Chomp {
-  private static final int CHOMPED = 1;
-  private static final int NOT_CHOMPED = 0;
+  public static final int CHOMPED = 1;
+  public static final int NOT_CHOMPED = 0;
+  public static final int DEFAULT_ROWS = 8;
+  public static final int DEFAULT_COLS = 6;
 
   private final int rows;
   private final int cols;
@@ -15,6 +19,13 @@ public class Chomp {
   // int[][1]
   // int[][2]
 
+  /**
+   * Creates a game of chomp. Any user interface who wishes to play this game must implement their own play() method.
+   * Chomp is a grid-based 2-player combinatorial game where the objective is to make the other player eat the poisoned piece (in this iteration it will always be the top left tile). Players take turn "chomp" a tile on the board -- when a tile is chomped, all the tiles to the right and bottom of that piece will also be chomped, forming a filled mini-rectangle. 
+   * The board size is arbitrary. It is up to the programmer's discretion to handle any errors that might rise from the user of this method inputting illegal values of rows and cols.
+   * @param rows
+   * @param cols
+   */
   public Chomp(int rows, int cols) {
     this.rows = rows;
     this.cols = cols;
@@ -22,19 +33,32 @@ public class Chomp {
     reset();
   }
 
-  public Chomp(int rows, int cols, ChompStatus status, int chomped, int player) {
+  /**
+   * A safe bare-bones constructor.
+   */
+  public Chomp() {
+    this(Chomp.DEFAULT_ROWS, Chomp.DEFAULT_COLS);
+  }
+
+  /**
+   * A specific constructor that specifies the configuration of a Chomp game.
+   * @param rows
+   * @param cols
+   * @param status
+   * @param chomped
+   */
+  public Chomp(int rows, int cols, ChompStatus status, int chomped) {
     this.rows = rows;
     this.cols = cols;
     this.board = new int[this.rows][this.cols];
     this.status = status;
     this.chomped = chomped;
-    this.player = player;
+    this.player = 0;
   }
 
-  public int getChomped() { // this is more to test
-    return chomped;
-  }
-
+  /**
+   * A method that resets the current version of Chomp.
+   */
   public void reset() {
     this.chomped = 0;
     this.status = ChompStatus.ONGOING;
@@ -45,9 +69,17 @@ public class Chomp {
       }
     }
   }
+  
+  public int getChomped() { // this is more to test
+    return this.chomped;
+  }
 
   public ChompStatus getStatus() {
-    return status;
+    return this.status;
+  }
+
+  public int[][] getBoard() {
+    return this.board;
   }
 
   public String getCurrentPlayer() {
@@ -58,20 +90,28 @@ public class Chomp {
     }
   }
 
+  /**
+   * When a tile is chomped, all the tiles to the right and bottom of that piece will also be chomped, forming a filled mini-rectangle. 
+   * @param row
+   * @param col
+   * @return
+   * @throws ChompException
+   */
   public ChompStatus chomp(int row, int col) throws ChompException {
     validateLocation(row, col);
     int rowindex = this.rows-1;
     while (rowindex >= row) { // while the index is still at the chomped param row and below
-      if (board[rowindex][col] == 0) {
-        board[rowindex][col] = 1; // chomps all rows at and below "row"
+      if (board[rowindex][col] == Chomp.NOT_CHOMPED) {
+        board[rowindex][col] = Chomp.CHOMPED; // chomps all rows at and below "row"
         chomped++; // updates # of pieces chomped
       }
       rowindex--; // updates rowindex
     }
+
     int colindex = this.cols-1;
     while (colindex >= col) { // while the index is still at the chomped column or to the right
-      if (board[row][colindex] == 0) {
-        board[row][colindex] = 1; // chomps all rows to the right of "col"
+      if (board[row][colindex] == Chomp.NOT_CHOMPED) {
+        board[row][colindex] = Chomp.CHOMPED; // chomps all rows to the right of "col"
         chomped++; // updates chomped
       }
       colindex--; // updates colindex
