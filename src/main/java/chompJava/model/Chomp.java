@@ -11,6 +11,8 @@ public class Chomp {
   private final int rows;
   private final int cols;
   private final int[][] board;
+  private final int player1 = 0;
+  //private final int player2 = 1;
   private int player; // 0 = p1, 1 = p2
   private int chomped;
   private ChompStatus status;
@@ -82,12 +84,8 @@ public class Chomp {
     return this.board;
   }
 
-  public String getCurrentPlayer() {
-    if (player == 0) {
-      return "player 1"; // do you want to return it as "player 1" or just "p1"
-    } else {
-      return "player 2";
-    }
+  public int getCurrentPlayer() {
+    return this.player;
   }
 
   /**
@@ -106,23 +104,26 @@ public class Chomp {
           board[r][c] = Chomp.CHOMPED; // chomps all rows to the right of "col"
           chomped++; // updates chomped
         }
+        else{
+          break;
+        }
       }
     }
     //updates the player
-    if(getCurrentPlayer().equals("player 1")){
+    if(getCurrentPlayer()==player1){
       player = 1;
     }
     else{
       player = 0;
     }
     if (board[0][0] == CHOMPED) { // check if there is loser
-      if (getCurrentPlayer() == "player 1") {
+      if (getCurrentPlayer() == player1) {
         this.status = ChompStatus.TWO_WINS;
       } else {
         this.status = ChompStatus.ONE_WINS;
       }
     }
-    return getStatus(); // automatically will check from here if the poison piece is eaten
+    return status; // automatically will check from here if the poison piece is eaten
   }
 
   @Override

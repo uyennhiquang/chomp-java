@@ -16,7 +16,7 @@ public class ChompTest {
         game.reset();
         assertEquals(ChompStatus.ONGOING, game.getStatus());
         assertEquals(0,game.getChomped());
-        assertEquals("player 1", game.getCurrentPlayer());
+        assertEquals(0, game.getCurrentPlayer());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class ChompTest {
             e.printStackTrace();
         }
         assertEquals(4, game.getChomped());
-        assertEquals("player 2", game.getCurrentPlayer());
+        assertEquals(1, game.getCurrentPlayer());
         assertEquals(ChompStatus.ONGOING, game.getStatus());
         assertEquals(ChompStatus.TWO_WINS, game.chomp(0,0));
         game.reset();
