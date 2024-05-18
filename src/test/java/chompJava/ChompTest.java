@@ -58,4 +58,30 @@ public class ChompTest {
             } 
         }
     }
+
+    @Test 
+    public void chompTestSecondChomp() {
+        // setup
+        Chomp game = new Chomp(5, 4);
+        int rowStart = 2;
+        int colStart = 2;
+        int rowStart2 = 1;
+        int colStart2 = 1;
+        
+        // invoke
+        try {
+            game.chomp(rowStart, colStart);
+            game.chomp(rowStart2, colStart2);
+        } catch (ChompException e) {
+            assertTrue(false);
+        }
+
+        // analyze
+        int[][] board = game.getBoard();
+        for (int row = rowStart2; row < board.length; row++) {
+            for (int col = colStart2; col < board[0].length; col ++) {
+                assertEquals(board[row][col], Chomp.CHOMPED); 
+            } 
+        }
+    }
 }
