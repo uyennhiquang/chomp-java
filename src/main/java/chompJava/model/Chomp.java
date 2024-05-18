@@ -99,18 +99,17 @@ public class Chomp {
    */
   public ChompStatus chomp(int row, int col) throws ChompException {
     validateLocation(row, col);
-    int rowindex = row;
     //the entire column right of col is chomped in row, then moves on to the next row all the way until this.rows
-    while(rowindex<this.rows){ //while the index is still at the chomped param row and below
+    while(row<this.rows){ //while the index is still at the chomped param row and below
       int colindex = this.cols-1;
       while (colindex >= col) { // while the index is still at the chomped column or to the right
-        if (board[rowindex][colindex] == Chomp.NOT_CHOMPED) {
-          board[rowindex][colindex] = Chomp.CHOMPED; // chomps all rows to the right of "col"
+        if (board[row][colindex] == Chomp.NOT_CHOMPED) {
+          board[row][colindex] = Chomp.CHOMPED; // chomps all rows to the right of "col"
           chomped++; // updates chomped
         }
         colindex--; // updates colindex
       }
-      rowindex++; //updates rowindex
+      row++; //updates rowindex
     }
     //updates the player
     if(getCurrentPlayer().equals("player 1")){
