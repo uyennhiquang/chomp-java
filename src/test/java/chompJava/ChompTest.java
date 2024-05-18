@@ -28,7 +28,7 @@ public class ChompTest {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        assertEquals(3, game.getChomped());
+        assertEquals(4, game.getChomped());
         assertEquals("player 2", game.getCurrentPlayer());
         assertEquals(ChompStatus.ONGOING, game.getStatus());
         assertEquals(ChompStatus.TWO_WINS, game.chomp(0,0));

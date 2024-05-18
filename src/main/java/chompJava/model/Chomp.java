@@ -1,6 +1,6 @@
 package chompJava.model;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class Chomp {
   public static final int CHOMPED = 1;
@@ -99,22 +99,18 @@ public class Chomp {
    */
   public ChompStatus chomp(int row, int col) throws ChompException {
     validateLocation(row, col);
-    int rowindex = this.rows-1;
-    while (rowindex >= row) { // while the index is still at the chomped param row and below
-      if (board[rowindex][col] == Chomp.NOT_CHOMPED) {
-        board[rowindex][col] = Chomp.CHOMPED; // chomps all rows at and below "row"
-        chomped++; // updates # of pieces chomped
+    int rowindex = row;
+    //the entire column right of col is chomped in row, then moves on to the next row all the way until this.rows
+    while(rowindex<this.rows){ //while the index is still at the chomped param row and below
+      int colindex = this.cols-1;
+      while (colindex >= col) { // while the index is still at the chomped column or to the right
+        if (board[rowindex][colindex] == Chomp.NOT_CHOMPED) {
+          board[rowindex][colindex] = Chomp.CHOMPED; // chomps all rows to the right of "col"
+          chomped++; // updates chomped
+        }
+        colindex--; // updates colindex
       }
-      rowindex--; // updates rowindex
-    }
-
-    int colindex = this.cols-1;
-    while (colindex >= col) { // while the index is still at the chomped column or to the right
-      if (board[row][colindex] == Chomp.NOT_CHOMPED) {
-        board[row][colindex] = Chomp.CHOMPED; // chomps all rows to the right of "col"
-        chomped++; // updates chomped
-      }
-      colindex--; // updates colindex
+      rowindex++; //updates rowindex
     }
     //updates the player
     if(getCurrentPlayer().equals("player 1")){
