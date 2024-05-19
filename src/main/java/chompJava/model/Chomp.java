@@ -7,11 +7,14 @@ public class Chomp {
   public static final int NOT_CHOMPED = 0;
   public static final int DEFAULT_ROWS = 8;
   public static final int DEFAULT_COLS = 6;
+  public static final int PLAYER_ONE = 0;
+  public static final int PLAYER_TWO = 1;
+  
 
   private final int rows;
   private final int cols;
   private final int[][] board;
-  private final int player1 = 0;
+  private final int player1 = Chomp.PLAYER_ONE;
   //private final int player2 = 1;
   private int player; // 0 = p1, 1 = p2
   private int chomped;
@@ -64,7 +67,7 @@ public class Chomp {
   public void reset() {
     this.chomped = 0;
     this.status = ChompStatus.ONGOING;
-    this.player = 0; // this is assuming p1 always goes first
+    this.player = Chomp.PLAYER_ONE; // this is assuming p1 always goes first
     for (int row = 0; row < this.rows; row++) { // resets the entire board to not chomped again
       for (int col = 0; col < this.cols; col++) {
         board[row][col] = Chomp.NOT_CHOMPED;
@@ -98,8 +101,8 @@ public class Chomp {
   public ChompStatus chomp(int row, int col) throws ChompException {
     validateLocation(row, col);
     //the entire column right of col is chomped in row, then moves on to the next row all the way until this.rows
-    for(int r = row; r<this.rows;r++){
-      for(int c = col; c<this.cols;c++) { // while the index is still at the chomped column or to the right
+    for (int r = row; r<this.rows ;r++){
+      for (int c = col; c<this.cols ;c++) { // while the index is still at the chomped column or to the right
         if (board[r][c] == Chomp.NOT_CHOMPED) {
           board[r][c] = Chomp.CHOMPED; // chomps all rows to the right of "col"
           chomped++; // updates chomped
@@ -109,21 +112,15 @@ public class Chomp {
         }
       }
     }
+
     //updates the player
-    if(getCurrentPlayer()==player1){
-      player = 1;
-    }
-    else{
-      player = 0;
-    }
+    this.player = this.player == Chomp.PLAYER_ONE ? Chomp.PLAYER_TWO : Chomp.PLAYER_ONE;
+
     if (board[0][0] == CHOMPED) { // check if there is loser
-      if (getCurrentPlayer() == player1) {
-        this.status = ChompStatus.TWO_WINS;
-      } else {
-        this.status = ChompStatus.ONE_WINS;
-      }
+      this.status = this.player == Chomp.PLAYER_ONE ? ChompStatus.TWO_WINS : ChompStatus.ONE_WINS;
     }
-    return status; // automatically will check from here if the poison piece is eaten
+    
+    return this.status; // automatically will check from here if the poison piece is eaten
   }
 
   @Override
