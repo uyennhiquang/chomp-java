@@ -125,7 +125,14 @@ public class Chomp {
 
   @Override
   public String toString() {
-    return "board: " + board + ", current player: " + getCurrentPlayer() + ", game status: " + getStatus();
+    String boardString = "";
+    for(int i =0; i<rows;i++){
+      boardString += "\n";
+      for(int j = 0;j<cols;j++){
+        boardString += board[i][j] + " ";
+      }
+    }
+    return "Board: " + boardString + "\n Current player: " + getCurrentPlayer() + ", Game Status: " + getStatus();
   }
 
   private void validateLocation(int row, int col) throws ChompException {

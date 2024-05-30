@@ -83,5 +83,6 @@ public class ChompTest {
                 assertEquals(board[row][col], Chomp.CHOMPED); 
             } 
         }
+        //assertEquals("b", game.toString());
     }
 }
