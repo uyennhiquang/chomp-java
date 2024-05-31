@@ -1,10 +1,11 @@
 package chompJava.model;
-
 //import java.util.Arrays;
 
 public class Chomp {
   public static final int CHOMPED = 1;
   public static final int NOT_CHOMPED = 0;
+  public static final String CHOMPEDCOLOR = AsciiColorCodes.RED;
+  public static final String NOT_CHOMPEDCOLOR = AsciiColorCodes.GREEN;
   public static final int DEFAULT_ROWS = 8;
   public static final int DEFAULT_COLS = 6;
   public static final int PLAYER_ONE = 0;
@@ -129,7 +130,12 @@ public class Chomp {
     for(int i =0; i<rows;i++){
       boardString += "\n";
       for(int j = 0;j<cols;j++){
-        boardString += board[i][j] + " ";
+        if(board[i][j]==Chomp.NOT_CHOMPED){
+          boardString += NOT_CHOMPEDCOLOR + (board[i][j] + " ");
+        }
+        else{
+          boardString += CHOMPEDCOLOR + (board[i][j] + " ");
+        }
       }
     }
     return "Board: " + boardString + "\n Current player: " + getCurrentPlayer() + ", Game Status: " + getStatus();
