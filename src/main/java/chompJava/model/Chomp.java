@@ -21,6 +21,20 @@ public class Chomp {
   private int chomped;
   private ChompStatus status;
 
+  //this was just for testing
+  public static void main(String[] args){
+    Chomp game = new Chomp(5, 4);
+    int rowStart = 2;
+    int colStart = 3;
+    try {
+      game.chomp(rowStart, colStart);
+    } catch (ChompException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    System.out.println(game.toString());
+  }
+
   // int [0, 1, 2, 3, n]
   // int[][1]
   // int[][2]
@@ -126,18 +140,18 @@ public class Chomp {
 
   @Override
   public String toString() {
-    String boardString = "\n";
+    String boardString = "\n" + " " + AsciiColorCodes.RESET;
     for(int k=0; k<board[0].length;k++){
       boardString+=" " + k;
     }
     for(int i =0; i<rows;i++){
-      boardString += "\n" + i;
+      boardString += "\n" + i + " ";
       for(int j = 0;j<cols;j++){
         if(board[i][j]==Chomp.NOT_CHOMPED){
-          boardString += NOT_CHOMPEDCOLOR + (board[i][j] + " ");
+          boardString += NOT_CHOMPEDCOLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
         }
         else{
-          boardString += CHOMPEDCOLOR + (board[i][j] + " ");
+          boardString += CHOMPEDCOLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
         }
       }
     }
