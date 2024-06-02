@@ -126,9 +126,12 @@ public class Chomp {
 
   @Override
   public String toString() {
-    String boardString = "";
+    String boardString = "\n";
+    for(int k=0; k<board[0].length;k++){
+      boardString+=" " + k;
+    }
     for(int i =0; i<rows;i++){
-      boardString += "\n";
+      boardString += "\n" + i;
       for(int j = 0;j<cols;j++){
         if(board[i][j]==Chomp.NOT_CHOMPED){
           boardString += NOT_CHOMPEDCOLOR + (board[i][j] + " ");
