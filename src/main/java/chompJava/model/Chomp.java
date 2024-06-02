@@ -23,9 +23,9 @@ public class Chomp {
 
   //this was just for testing
   public static void main(String[] args){
-    Chomp game = new Chomp(5, 4);
-    int rowStart = 2;
-    int colStart = 3;
+    Chomp game = new Chomp(10, 10);
+    int rowStart = 0;
+    int colStart = 0;
     try {
       game.chomp(rowStart, colStart);
     } catch (ChompException e) {
@@ -155,7 +155,7 @@ public class Chomp {
         }
       }
     }
-    return "Board: " + boardString + "\n Current player: " + getCurrentPlayer() + ", Game Status: " + getStatus();
+    return " Board: " + boardString + "\n Current player: " + getCurrentPlayer() + ", Game Status: " + getStatus();
   }
 
   private void validateLocation(int row, int col) throws ChompException {
