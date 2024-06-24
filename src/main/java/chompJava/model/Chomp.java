@@ -3,8 +3,9 @@ package chompJava.model;
 public class Chomp {
   public static final int CHOMPED = 1;
   public static final int NOT_CHOMPED = 0;
-  public static final String CHOMPEDCOLOR = AsciiColorCodes.RED;
-  public static final String NOT_CHOMPEDCOLOR = AsciiColorCodes.GREEN;
+  public static final String POISON_COLOR = AsciiColorCodes.PURPLE;
+  public static final String CHOMPED_COLOR = AsciiColorCodes.RED;
+  public static final String NOT_CHOMPED_COLOR = AsciiColorCodes.GREEN;
 
   public static final int DEFAULT_ROWS = 8;
   public static final int DEFAULT_COLS = 6;
@@ -128,7 +129,6 @@ public class Chomp {
     // updates the player
     this.player = this.player == Chomp.PLAYER_ONE ? Chomp.PLAYER_TWO : Chomp.PLAYER_ONE;
 
-
     return this.status; // automatically will check from here if the poison piece is eaten
   }
 
@@ -141,10 +141,12 @@ public class Chomp {
     for (int i = 0; i < rows; i++) {
       boardString += "\n" + i + " ";
       for (int j = 0; j < cols; j++) {
-        if (board[i][j] == Chomp.NOT_CHOMPED) {
-          boardString += NOT_CHOMPEDCOLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
+        if (i == 0 && j == 0) {
+          boardString += POISON_COLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
+        } else if (board[i][j] == Chomp.NOT_CHOMPED) {
+          boardString += NOT_CHOMPED_COLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
         } else {
-          boardString += CHOMPEDCOLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
+          boardString += CHOMPED_COLOR + (board[i][j] + " ") + AsciiColorCodes.RESET;
         }
       }
     }
