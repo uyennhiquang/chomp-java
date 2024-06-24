@@ -124,12 +124,12 @@ public class Chomp {
       }
     }
 
-    // updates the player
-    this.player = this.player == Chomp.PLAYER_ONE ? Chomp.PLAYER_TWO : Chomp.PLAYER_ONE;
-
     if (board[0][0] == CHOMPED) { // check if there is loser
       this.status = this.player == Chomp.PLAYER_ONE ? ChompStatus.TWO_WINS : ChompStatus.ONE_WINS;
     }
+    // updates the player
+    this.player = this.player == Chomp.PLAYER_ONE ? Chomp.PLAYER_TWO : Chomp.PLAYER_ONE;
+
 
     return this.status; // automatically will check from here if the poison piece is eaten
   }

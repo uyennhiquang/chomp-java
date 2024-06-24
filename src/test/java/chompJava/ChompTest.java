@@ -11,19 +11,19 @@ import chompJava.model.ChompStatus;
 
 public class ChompTest {
     @Test
-    public void resetTest01(){
-        Chomp game = new Chomp(5,4, ChompStatus.ONE_WINS,43);
+    public void resetTest01() {
+        Chomp game = new Chomp(5, 4, ChompStatus.ONE_WINS, 43);
         game.reset();
         assertEquals(ChompStatus.ONGOING, game.getStatus());
-        assertEquals(0,game.getChomped());
+        assertEquals(0, game.getChomped());
         assertEquals(0, game.getCurrentPlayer());
     }
 
     @Test
-    public void chompTest01() throws ChompException{
-        Chomp game = new Chomp(5,4);
+    public void chompTest01() throws ChompException {
+        Chomp game = new Chomp(5, 4);
         try {
-            game.chomp(3,2);
+            game.chomp(3, 2);
         } catch (ChompException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -31,18 +31,19 @@ public class ChompTest {
         assertEquals(4, game.getChomped());
         assertEquals(1, game.getCurrentPlayer());
         assertEquals(ChompStatus.ONGOING, game.getStatus());
-        assertEquals(ChompStatus.TWO_WINS, game.chomp(0,0));
+        assertEquals(ChompStatus.TWO_WINS, game.chomp(0, 0));
         game.reset();
-        //assertEquals("chompJava.model.ChompException: This location (6, 6) is not on the board", game.chomp(6,6));
+        // assertEquals("chompJava.model.ChompException: This location (6, 6) is not on
+        // the board", game.chomp(6,6));
     }
 
-    @Test 
+    @Test
     public void chompTestRectangle() {
         // setup
         Chomp game = new Chomp(5, 4);
         int rowStart = 2;
         int colStart = 2;
-        
+
         // invoke
         try {
             game.chomp(rowStart, colStart);
@@ -53,13 +54,13 @@ public class ChompTest {
         // analyze
         int[][] board = game.getBoard();
         for (int row = rowStart; row < board.length; row++) {
-            for (int col = colStart; col < board[0].length; col ++) {
-                assertEquals(board[row][col], Chomp.CHOMPED); 
-            } 
+            for (int col = colStart; col < board[0].length; col++) {
+                assertEquals(board[row][col], Chomp.CHOMPED);
+            }
         }
     }
 
-    @Test 
+    @Test
     public void chompTestSecondChomp() {
         // setup
         Chomp game = new Chomp(5, 4);
@@ -67,7 +68,7 @@ public class ChompTest {
         int colStart = 2;
         int rowStart2 = 1;
         int colStart2 = 1;
-        
+
         // invoke
         try {
             game.chomp(rowStart, colStart);
@@ -79,10 +80,40 @@ public class ChompTest {
         // analyze
         int[][] board = game.getBoard();
         for (int row = rowStart2; row < board.length; row++) {
-            for (int col = colStart2; col < board[0].length; col ++) {
-                assertEquals(board[row][col], Chomp.CHOMPED); 
-            } 
+            for (int col = colStart2; col < board[0].length; col++) {
+                assertEquals(board[row][col], Chomp.CHOMPED);
+            }
         }
-        //assertEquals("b", game.toString());
+        // assertEquals("b", game.toString());
+    }
+
+    @Test
+    public void testChompGameStatusP2Wins() {
+        Chomp chomp = new Chomp(3, 3);
+        try {
+            chomp.chomp(0, 1);
+            chomp.chomp(1, 0);
+            chomp.chomp(0, 0);
+        } catch (ChompException e) {
+        }
+        ChompStatus expected = ChompStatus.TWO_WINS;
+
+        ChompStatus actual = chomp.getStatus();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testChompGameStatusP2Autowins() {
+        Chomp chomp = new Chomp(3, 3);
+        try {
+            chomp.chomp(0, 0);
+        } catch (ChompException e) {
+        }
+        ChompStatus expected = ChompStatus.TWO_WINS;
+
+        ChompStatus actual = chomp.getStatus();
+
+        assertEquals(expected, actual);
     }
 }
