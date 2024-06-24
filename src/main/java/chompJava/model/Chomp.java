@@ -1,11 +1,11 @@
 package chompJava.model;
-//import java.util.Arrays;
 
 public class Chomp {
   public static final int CHOMPED = 1;
   public static final int NOT_CHOMPED = 0;
   public static final String CHOMPEDCOLOR = AsciiColorCodes.RED;
   public static final String NOT_CHOMPEDCOLOR = AsciiColorCodes.GREEN;
+
   public static final int DEFAULT_ROWS = 8;
   public static final int DEFAULT_COLS = 6;
   public static final int PLAYER_ONE = 0;
@@ -14,8 +14,6 @@ public class Chomp {
   private final int rows;
   private final int cols;
   private final int[][] board;
-  private final int player1 = Chomp.PLAYER_ONE;
-  // private final int player2 = 1;
   private int player; // 0 = p1, 1 = p2
   private int chomped;
   private ChompStatus status;
